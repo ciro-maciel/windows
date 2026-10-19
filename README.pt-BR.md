@@ -4,6 +4,8 @@
 
 Um dos [seis apps de Mac grátis e de código aberto](#mais-de-ciro-cesar-maciel) de [Ciro Cesar Maciel](https://ciromaciel.click/?ref=oss-windows).
 
+**[Veja o vídeo de 1 minuto](https://youtu.be/CbZBvyRRED4)** (em inglês)
+
 Metades, tela inteira, centralizar, a próxima tela e tamanhos seus, cada um num atalho que você pode trocar. Leve uma janela até uma borda ou um canto e solte. Fica na barra de menus, sem ícone no Dock, e não tem código de rede. No espírito do Rectangle e do Magnet, menor de propósito. Um app nativo em Swift para macOS 14+ em Apple Silicon.
 
 [English](README.md)
