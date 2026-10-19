@@ -48,7 +48,7 @@ final class Config: ObservableObject {
     func title(_ command: Command) -> String {
         switch command {
         case .action(let a): return a.title
-        case .layout(let id): return layout(id)?.name ?? "Tamanho"
+        case .layout(let id): return layout(id)?.name ?? L("layout.fallbackName")
         }
     }
 

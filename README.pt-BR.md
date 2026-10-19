@@ -6,7 +6,7 @@ Metades, tela inteira, centralizar, a próxima tela e tamanhos seus, cada um num
 
 [English](README.md)
 
-![Ajustes: as posições e os atalhos de fábrica, todos trocáveis](docs/settings.webp)
+![Ajustes: as posições e os atalhos de fábrica, todos trocáveis](docs/settings.pt-BR.webp)
 
 ## Instalar
 
@@ -39,7 +39,7 @@ Na primeira vez, ligue o Windows em **Ajustes do Sistema → Privacidade e Segur
 - **Divide o Mac com outros gerenciadores de janelas.** Reconhece Rectangle, Rectangle Pro, Magnet, Moom e alguns outros abertos, avisa no menu e nos Ajustes, e retoma os atalhos assim que o outro fecha.
 - **Só na barra de menus.** Todas as posições e tamanhos ficam a um clique no menu, e ele pode abrir quando você liga o Mac.
 
-![Ajustes: arrastar até a borda, e o que cada borda faz](docs/drag.webp)
+![Ajustes: arrastar até a borda, e o que cada borda faz](docs/drag.pt-BR.webp)
 
 ## Como é feito
 
@@ -74,7 +74,7 @@ O `scripts/e2e.sh` abre uma janela própria e usa um conjunto de ajustes separad
 ## Limites
 
 - Só Apple Silicon e macOS 14 ou mais novo.
-- A interface está em português por enquanto.
+- A interface está em inglês e em português do Brasil, conforme o idioma do Mac.
 - Fica de fora de propósito: terços e ciclos de tamanho, espaço entre janelas, layouts salvos, gestos do trackpad e sincronização pelo iCloud.
 
 ## Contribuir

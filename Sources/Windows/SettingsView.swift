@@ -76,11 +76,7 @@ enum Pane: String, CaseIterable, Identifiable {
     case shortcuts, drag, general
     var id: String { rawValue }
     var title: String {
-        switch self {
-        case .shortcuts: return "Atalhos"
-        case .drag: return "Arrastar"
-        case .general: return "Geral"
-        }
+        L("pane.\(rawValue)")
     }
     var icon: String {
         switch self {
@@ -90,11 +86,7 @@ enum Pane: String, CaseIterable, Identifiable {
         }
     }
     var subtitle: String {
-        switch self {
-        case .shortcuts: return "Aperte o atalho e a janela da frente vai para o lugar. Clique num atalho para trocar."
-        case .drag: return "Leve a janela pela barra de título até a borda da tela e solte."
-        case .general: return "O Windows fica só na barra de menus, sem ícone no Dock."
-        }
+        L("pane.\(rawValue).subtitle")
     }
 }
 
@@ -112,13 +104,13 @@ struct SettingsView: View {
     var body: some View {
         MacShellView {
             MacSidebar(app: "Windows") {
-                MacSidebarGroup(title: "Ajustes") {
+                MacSidebarGroup(title: L("settings.group")) {
                     ForEach(Pane.allCases) { p in
                         MacSidebarItem(icon: p.icon, title: p.title, active: pane == p) { pane = p }
                     }
                 }
             } status: {
-                MacStatusLine(on: state.trusted, onText: "Acessibilidade ligada", offText: "Acessibilidade desligada") {
+                MacStatusLine(on: state.trusted, onText: L("status.accessibilityOn"), offText: L("status.accessibilityOff")) {
                     AppState.openAccessibilitySettings()
                 }
             }
@@ -156,7 +148,7 @@ struct SettingsView: View {
 
             switch pane {
             case .shortcuts:
-                Text("Posições").zenLabel(10, color: Zen.gray5).padding(.bottom, 10)
+                Text(L("shortcuts.positions")).zenLabel(10, color: Zen.gray5).padding(.bottom, 10)
                 VStack(spacing: 0) {
                     ForEach(Array(WindowAction.keyboard.enumerated()), id: \.offset) { i, action in
                         if i > 0 { Rectangle().fill(Zen.gray2).frame(height: 1) }
@@ -171,12 +163,12 @@ struct SettingsView: View {
                 .padding(.bottom, 28)
 
                 HStack(alignment: .bottom) {
-                    Text("Tamanhos").zenLabel(10, color: Zen.gray5)
+                    Text(L("shortcuts.sizes")).zenLabel(10, color: Zen.gray5)
                     Spacer()
                     Button {
                         editing = CustomLayout(name: "", width: 70, height: 70, anchor: .center)
                     } label: {
-                        HStack(spacing: 6) { Icon(name: "plus", size: 14, color: .white); Text("Novo tamanho") }
+                        HStack(spacing: 6) { Icon(name: "plus", size: 14, color: .white); Text(L("shortcuts.newSize")) }
                     }
                     .buttonStyle(ZenButton())
                     .accessibilityIdentifier("layouts.add")
@@ -184,7 +176,7 @@ struct SettingsView: View {
                 .padding(.bottom, 10)
                 VStack(spacing: 0) {
                     if config.layouts.isEmpty {
-                        Text("Nenhum tamanho ainda. Crie um com Novo tamanho: largura, altura, posição e atalho.")
+                        Text(L("shortcuts.empty"))
                             .zenNote().padding(16).frame(maxWidth: .infinity, alignment: .leading)
                     }
                     ForEach(Array(config.layouts.enumerated()), id: \.element.id) { i, layout in
@@ -200,10 +192,10 @@ struct SettingsView: View {
                 .zenBorder()
 
                 VStack(alignment: .trailing, spacing: 8) {
-                    Text("Clique num atalho e aperte a combinação nova. ⌫ tira o atalho, esc cancela.")
+                    Text(L("shortcuts.hint"))
                         .font(Zen.font(11, .medium)).foregroundStyle(Zen.gray5)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Button("Voltar aos atalhos padrão") {
+                    Button(L("shortcuts.reset")) {
                         config.resetShortcuts()
                         Task { await state.scanConflicts() }
                     }
@@ -213,17 +205,17 @@ struct SettingsView: View {
                 }
                 .padding(.top, 12)
             case .drag:
-                ToggleRow(on: state.snapping, title: "Encaixar ao arrastar até a borda",
-                          note: "Enquanto o cursor está na borda, um contorno mostra onde a janela vai parar.") {
+                ToggleRow(on: state.snapping, title: L("drag.toggle"),
+                          note: L("drag.toggle.note")) {
                     state.snapping.toggle()
                 }
                 .padding(.bottom, 24)
-                Text("Onde soltar").zenLabel(10, color: Zen.gray5).padding(.bottom, 10)
+                Text(L("drag.where")).zenLabel(10, color: Zen.gray5).padding(.bottom, 10)
                 VStack(spacing: 0) {
-                    ForEach(Array([("layout-sidebar", "Borda esquerda", "Metade esquerda"),
-                                   ("layout-sidebar-right", "Borda direita", "Metade direita"),
-                                   ("maximize", "Borda de cima", "Tela inteira"),
-                                   ("layout-grid", "Um dos cantos", "Um quarto da tela")].enumerated()), id: \.offset) { i, row in
+                    ForEach(Array([("layout-sidebar", L("drag.leftEdge"), WindowAction.leftHalf.title),
+                                   ("layout-sidebar-right", L("drag.rightEdge"), WindowAction.rightHalf.title),
+                                   ("maximize", L("drag.topEdge"), WindowAction.maximize.title),
+                                   ("layout-grid", L("drag.corner"), L("drag.quarter"))].enumerated()), id: \.offset) { i, row in
                         if i > 0 { Rectangle().fill(Zen.gray2).frame(height: 1) }
                         HStack(spacing: 12) {
                             Icon(name: row.0, size: 16, color: Zen.gray7)
@@ -236,8 +228,8 @@ struct SettingsView: View {
                 }
                 .zenBorder()
             case .general:
-                ToggleRow(on: state.launchAtLogin, title: "Abrir ao ligar o Mac",
-                          note: "Entra sozinho quando você liga o Mac, direto na barra de menus.") {
+                ToggleRow(on: state.launchAtLogin, title: L("general.login"),
+                          note: L("general.login.note")) {
                     state.setLaunchAtLogin(!state.launchAtLogin)
                 }
             }
@@ -248,11 +240,11 @@ struct SettingsView: View {
         HStack(alignment: .top, spacing: 14) {
             Icon(name: "lock", size: 18, color: Zen.gray9).padding(.top, 2)
             VStack(alignment: .leading, spacing: 10) {
-                Text("Falta uma permissão").font(Zen.font(13, .bold)).foregroundStyle(Zen.gray9)
-                Text("Para mover janelas de outros apps, ligue o Windows em Ajustes do Sistema, Privacidade e Segurança, Acessibilidade.")
+                Text(L("permission.title")).font(Zen.font(13, .bold)).foregroundStyle(Zen.gray9)
+                Text(L("permission.body"))
                     .zenNote().fixedSize(horizontal: false, vertical: true)
                 Button { AppState.openAccessibilitySettings() } label: {
-                    HStack(spacing: 8) { Text("Abrir Ajustes"); Icon(name: "external-link", size: 14, color: .white) }
+                    HStack(spacing: 8) { Text(L("permission.open")); Icon(name: "external-link", size: 14, color: .white) }
                 }
                 .buttonStyle(ZenButton())
             }
@@ -267,8 +259,8 @@ struct SettingsView: View {
         HStack(alignment: .top, spacing: 14) {
             Icon(name: "alert-triangle", size: 18, color: Zen.gray9).padding(.top, 2)
             VStack(alignment: .leading, spacing: 6) {
-                Text("O \(name) está aberto").font(Zen.font(13, .bold)).foregroundStyle(Zen.gray9)
-                Text("Ele usa os mesmos atalhos e o macOS entrega cada atalho a quem chegou primeiro. Feche o \(name) e tire ele dos itens de início; o Windows assume os atalhos na hora.")
+                Text(L("rival.title", name)).font(Zen.font(13, .bold)).foregroundStyle(Zen.gray9)
+                Text(L("rival.body", name))
                     .zenNote().fixedSize(horizontal: false, vertical: true)
             }
         }
@@ -305,7 +297,7 @@ private struct CommandRow: View {
                         if open != nil && hover { Icon(name: "pencil", size: 12, color: Zen.gray5) }
                     }
                     if let first = conflicts.first {
-                        Text(first.text + (conflicts.count > 1 ? " (e mais \(conflicts.count - 1))" : ""))
+                        Text(conflicts.count > 1 ? L("shortcuts.andMore", first.text, conflicts.count - 1) : first.text)
                             .font(Zen.font(11, .medium)).foregroundStyle(Zen.red7)
                             .fixedSize(horizontal: false, vertical: true)
                             .help(conflicts.map(\.text).joined(separator: "\n"))

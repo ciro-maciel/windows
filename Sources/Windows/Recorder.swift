@@ -23,14 +23,14 @@ struct KeyRecorder: View {
             Button(action: toggle) {
                 Group {
                     if recording {
-                        Text("Digite o atalho").font(Zen.font(11, .bold)).foregroundStyle(Zen.gray9)
+                        Text(L("recorder.recording")).font(Zen.font(11, .bold)).foregroundStyle(Zen.gray9)
                             .padding(.horizontal, 10).frame(height: 24)
                             .background(Zen.gray0)
                             .overlay(Rectangle().strokeBorder(Zen.gray9, lineWidth: 1.5))
                     } else if let shortcut {
                         Caps(shortcut: shortcut)
                     } else {
-                        Text("Sem atalho").font(Zen.font(11, .bold)).foregroundStyle(Zen.gray4)
+                        Text(L("recorder.none")).font(Zen.font(11, .bold)).foregroundStyle(Zen.gray4)
                             .padding(.horizontal, 10).frame(height: 24)
                             .overlay(Rectangle().strokeBorder(Zen.gray3, style: StrokeStyle(lineWidth: 1, dash: [3, 2])))
                     }
@@ -41,7 +41,7 @@ struct KeyRecorder: View {
             }
             .buttonStyle(.plain)
             .onHover { hover = $0 }
-            .help(recording ? "Aperte a combinação. ⌫ tira o atalho, esc cancela." : "Clique para trocar o atalho")
+            .help(recording ? L("recorder.help.recording") : L("recorder.help.idle"))
             .accessibilityIdentifier(identifier)
             if let message {
                 Text(message).font(Zen.font(11, .medium)).foregroundStyle(Zen.red7)
@@ -51,7 +51,7 @@ struct KeyRecorder: View {
             } else if recording {
                 // A combination another app holds as a global shortcut never reaches this window:
                 // the only sign macOS gives is that nothing happens.
-                Text("⌫ tira o atalho · esc cancela\nSe nada aparecer, outro app já usa a combinação")
+                Text(L("recorder.tip"))
                     .font(Zen.font(11, .medium)).foregroundStyle(Zen.gray5)
                     .multilineTextAlignment(.trailing).fixedSize(horizontal: false, vertical: true)
             }
@@ -88,12 +88,12 @@ struct KeyRecorder: View {
         }
         let s = Shortcut(keyCode: UInt32(event.keyCode), modifiers: mods)
         guard s.isUsable else {
-            message = "Use ⌃, ⌥ ou ⌘ junto com a tecla"
+            message = L("recorder.needsModifier")
             return
         }
         stop()
         if let owner = Config.shared.owner(of: s, except: command) {
-            message = "\(s.text) já é o atalho de “\(Config.shared.title(owner))”"
+            message = L("recorder.taken", s.text, Config.shared.title(owner))
             return
         }
         onChange(s)

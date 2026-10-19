@@ -14,13 +14,13 @@ struct LayoutEditor: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Text(isNew ? "Novo tamanho" : "Editar tamanho").font(Zen.font(16, .extraBold)).foregroundStyle(Zen.gray9)
+                Text(isNew ? L("editor.new") : L("editor.edit")).font(Zen.font(16, .extraBold)).foregroundStyle(Zen.gray9)
                 Spacer()
                 Button(action: close) {
                     Icon(name: "x", size: 18, color: Zen.gray6).frame(width: 28, height: 28).contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
-                .help("Fechar sem salvar (esc)")
+                .help(L("editor.close"))
                 .keyboardShortcut(.cancelAction)
                 .accessibilityIdentifier("layout.close")
             }
@@ -33,23 +33,23 @@ struct LayoutEditor: View {
             }
             .padding(.bottom, 24)
 
-            field("Nome") {
-                TextField("Ex.: Leitura", text: $draft.name)
+            field(L("editor.name")) {
+                TextField(L("editor.name.placeholder"), text: $draft.name)
                     .modifier(ZenField())
                     .accessibilityIdentifier("layout.name")
             }
 
             HStack(alignment: .top, spacing: 12) {
-                field("Largura") {
+                field(L("editor.width")) {
                     TextField("", value: $draft.width, format: .number.precision(.fractionLength(0...1)))
                         .modifier(ZenField()).accessibilityIdentifier("layout.width")
                 }
-                field("Altura") {
+                field(L("editor.height")) {
                     TextField("", value: $draft.height, format: .number.precision(.fractionLength(0...1)))
                         .modifier(ZenField()).accessibilityIdentifier("layout.height")
                 }
-                field("Medida") {
-                    Segmented(options: [(CustomLayout.Unit.percent, "% da tela"), (.points, "Pontos")], selection: unitBinding)
+                field(L("editor.unit")) {
+                    Segmented(options: [(CustomLayout.Unit.percent, L("editor.unit.percent")), (.points, L("editor.unit.points"))], selection: unitBinding)
                 }
             }
             if let sizeProblem {
@@ -57,18 +57,18 @@ struct LayoutEditor: View {
             }
 
             HStack(alignment: .top, spacing: 24) {
-                field("Posição") {
+                field(L("editor.position")) {
                     HStack(alignment: .center, spacing: 12) {
                         AnchorGrid(selection: $draft.anchor)
                         Text(draft.anchor.title).font(Zen.font(13, .medium)).foregroundStyle(Zen.gray7)
                     }
                 }
-                field("Tela") {
+                field(L("editor.display")) {
                     Segmented(options: CustomLayout.Display.allCases.map { ($0, $0.title) }, selection: $draft.display)
                 }
             }
 
-            field("Atalho") {
+            field(L("editor.shortcut")) {
                 VStack(alignment: .leading, spacing: 6) {
                     HStack {
                         KeyRecorder(command: .layout(draft.id), shortcut: draft.shortcut, identifier: "layout.shortcut") { s in
@@ -86,14 +86,14 @@ struct LayoutEditor: View {
             Rectangle().fill(Zen.gray2).frame(height: 1).padding(.top, 4).padding(.bottom, 20)
             HStack {
                 if !isNew {
-                    HoldButton(title: "Excluir") {
+                    HoldButton(title: L("editor.delete")) {
                         Config.shared.delete(draft.id)
                         close()
                     }
                     .accessibilityIdentifier("layout.delete")
                 }
                 Spacer()
-                Button(isNew ? "Criar tamanho" : "Salvar") {
+                Button(isNew ? L("editor.create") : L("editor.save")) {
                     draft.name = draft.name.trimmingCharacters(in: .whitespaces)
                     Config.shared.save(draft)
                     close()
@@ -131,9 +131,9 @@ struct LayoutEditor: View {
     private var sizeProblem: String? {
         switch draft.unit {
         case .percent:
-            return (5...100).contains(draft.width) && (5...100).contains(draft.height) ? nil : "Largura e altura entre 5% e 100% da tela."
+            return (5...100).contains(draft.width) && (5...100).contains(draft.height) ? nil : L("editor.percentRange")
         case .points:
-            return (100...10000).contains(draft.width) && (100...10000).contains(draft.height) ? nil : "Largura e altura entre 100 e 10.000 pontos."
+            return (100...10000).contains(draft.width) && (100...10000).contains(draft.height) ? nil : L("editor.pointsRange")
         }
     }
 
@@ -234,7 +234,7 @@ struct HoldButton: View {
             let left = max(1, Int(ceil(duration * (1 - progress))))
             HStack(spacing: 8) {
                 Icon(name: "trash", size: 14, color: Zen.red7)
-                Text(pressedAt == nil ? title : "Segure… \(left)")
+                Text(pressedAt == nil ? title : L("hold.countdown", left))
             }
             .font(Zen.font(11, .extraBold)).tracking(1).textCase(.uppercase)
             .padding(.horizontal, 12)
@@ -256,6 +256,6 @@ struct HoldButton: View {
         } onPressingChanged: { pressing in
             pressedAt = pressing ? Date() : nil
         }
-        .help("Segure por \(Int(duration)) segundos para excluir. Solte para cancelar.")
+        .help(L("hold.help", Int(duration)))
     }
 }

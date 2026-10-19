@@ -74,7 +74,7 @@ scripts/e2e.sh                                              # end to end: real k
 ## Limits
 
 - Apple Silicon and macOS 14 or newer only.
-- The interface is in Portuguese for now.
+- The interface is in English and Brazilian Portuguese, following the Mac's language.
 - Left out on purpose: thirds and size cycling, gaps between windows, saved layouts, trackpad gestures and iCloud sync.
 
 ## Contributing

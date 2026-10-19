@@ -15,6 +15,7 @@ Windows is a native macOS menu bar app in Swift, AppKit and SwiftUI that moves o
 | `Sources/Windows/Conflicts.swift` | Who else uses a shortcut: macOS, open apps' menus, other window managers |
 | `Sources/Windows/Config.swift` | What the person set, as JSON in user defaults (`WINDOWS_DEFAULTS` picks another suite) |
 | `Sources/Windows/SettingsView.swift`, `LayoutEditor.swift`, `MacShell.swift`, `Theme.swift` | The Settings window; `Theme.swift` holds the design tokens |
+| `Sources/Windows/Strings.swift`, `Resources/en.lproj`, `Resources/pt-BR.lproj` | The interface text: `L("key")` looks it up in `Localizable.strings`, Portuguese when the Mac's first language is Portuguese, English otherwise |
 | `Sources/Windows/SelfTest.swift` | `--selftest`: geometry, zones and shortcuts on made-up screens |
 | `scripts/` | Build, local install, signing identity, end-to-end test, screenshots, asset regeneration |
 | `scripts/release/` | Packing the `.dmg` and publishing it; used by `.github/workflows/release.yml` |
@@ -27,6 +28,8 @@ dist/Windows.app/Contents/MacOS/Windows --selftest
 scripts/e2e.sh
 ```
 
+`scripts/screens.sh [dir] en` and `scripts/screens.sh [dir] pt-BR` capture the Settings window in each language.
+
 `scripts/e2e.sh` needs a terminal with Accessibility and takes over the mouse and keyboard for about 40 seconds. Ask the person before you run it.
 
 ## Rules that must hold
@@ -35,4 +38,4 @@ scripts/e2e.sh
 - Accessibility is the only permission. Read a window's position and size, never its contents.
 - Coordinates: Accessibility uses a top-left origin, everything else is Cocoa (bottom left). The conversion lives in `WindowMover.swift` only.
 - The bundle identifier (`click.ciromaciel.windows`) never changes: macOS ties Accessibility to it and to the signature.
-- The interface text is in Portuguese; code, comments and file names are in English.
+- Every user-facing string exists in English and Brazilian Portuguese (`Resources/en.lproj` and `Resources/pt-BR.lproj`, read through `L("key")`); a change that adds text adds both. Code, comments and file names are in English.

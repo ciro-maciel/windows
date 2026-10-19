@@ -39,7 +39,7 @@ struct CustomLayout: Codable, Identifiable, Hashable {
         return CGRect(x: x, y: y, width: w, height: h)
     }
 
-    /// "80% × 80%, em cima" for the list.
+    /// "80% × 80%, top" for the list.
     var summary: String {
         let size = unit == .percent
             ? "\(Self.number(width))% × \(Self.number(height))%"
@@ -50,42 +50,30 @@ struct CustomLayout: Codable, Identifiable, Hashable {
     }
 
     static func number(_ v: Double) -> String {
-        v == v.rounded() ? String(Int(v)) : String(format: "%.1f", v).replacingOccurrences(of: ".", with: ",")
+        // In the Mac's number format, as the editor's fields show it: 97.1 or 97,1.
+        v.formatted(.number.precision(.fractionLength(0...1)).grouping(.never))
     }
 
-    /// The three sizes the app ships with; the person can edit or delete them.
+    /// The three sizes the app ships with, named in the app's language; the person can edit or delete them.
+    /// Once saved, a name stays as it was written.
     static let defaults: [CustomLayout] = [
-        CustomLayout(id: UUID(uuidString: "6F0A1C2E-0001-4000-8000-000000000097")!, name: "Quase inteira",
+        CustomLayout(id: UUID(uuidString: "6F0A1C2E-0001-4000-8000-000000000097")!, name: L("layout.default.almostFull"),
                      width: 97.1, height: 97, anchor: .center, shortcut: .opt(kVK_ANSI_F)),
-        CustomLayout(id: UUID(uuidString: "6F0A1C2E-0002-4000-8000-000000000080")!, name: "Grande",
+        CustomLayout(id: UUID(uuidString: "6F0A1C2E-0002-4000-8000-000000000080")!, name: L("layout.default.large"),
                      width: 80, height: 80, anchor: .top, shortcut: .opt(kVK_ANSI_D)),
-        CustomLayout(id: UUID(uuidString: "6F0A1C2E-0003-4000-8000-000000000060")!, name: "Média",
+        CustomLayout(id: UUID(uuidString: "6F0A1C2E-0003-4000-8000-000000000060")!, name: L("layout.default.medium"),
                      width: 60, height: 60, anchor: .top, shortcut: .opt(kVK_ANSI_S)),
     ]
 }
 
 extension CustomLayout.Anchor {
     var title: String {
-        switch self {
-        case .topLeft: return "Em cima à esquerda"
-        case .top: return "Em cima"
-        case .topRight: return "Em cima à direita"
-        case .left: return "À esquerda"
-        case .center: return "No centro"
-        case .right: return "À direita"
-        case .bottomLeft: return "Embaixo à esquerda"
-        case .bottom: return "Embaixo"
-        case .bottomRight: return "Embaixo à direita"
-        }
+        L("anchor.\(rawValue)")
     }
 }
 
 extension CustomLayout.Display {
     var title: String {
-        switch self {
-        case .current: return "Tela da janela"
-        case .main: return "Tela principal"
-        case .next: return "Próxima tela"
-        }
+        L("display.\(rawValue)")
     }
 }

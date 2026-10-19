@@ -13,7 +13,7 @@ enum Main {
         if let i = args.firstIndex(of: "--open-settings") {
             AppDelegate.openSettingsAtLaunch = i + 1 < args.count ? (Pane(rawValue: args[i + 1]) ?? .shortcuts) : .shortcuts
         }
-        // `--open-editor new|<size name>`: the settings with the size editor open (scripts/screens.sh).
+        // `--open-editor new|<size name or id>`: the settings with the size editor open (scripts/screens.sh).
         if let i = args.firstIndex(of: "--open-editor"), i + 1 < args.count {
             AppDelegate.openSettingsAtLaunch = .shortcuts
             AppDelegate.editorAtLaunch = args[i + 1]
@@ -103,12 +103,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         state.refresh()
         menu.removeAllItems()
         if let rival = state.rival {
-            let warn = entry("O \(rival) está aberto e disputa os atalhos", icon: "alert-triangle", action: #selector(openSettingsFromMenu))
+            let warn = entry(L("menu.rival", rival), icon: "alert-triangle", action: #selector(openSettingsFromMenu))
             menu.addItem(warn)
             menu.addItem(.separator())
         }
         if !state.trusted {
-            menu.addItem(entry("Permitir o acesso…", icon: "lock", action: #selector(openAccessibility)))
+            menu.addItem(entry(L("menu.allowAccess"), icon: "lock", action: #selector(openAccessibility)))
             menu.addItem(.separator())
         }
         let config = Config.shared
@@ -119,17 +119,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         if !config.layouts.isEmpty { menu.addItem(.separator()) }
         for layout in config.layouts { add(.layout(layout.id), title: layout.name, to: menu) }
         menu.addItem(.separator())
-        let snap = entry("Encaixar ao arrastar", icon: nil, action: #selector(toggleSnapping))
+        let snap = entry(L("menu.snap"), icon: nil, action: #selector(toggleSnapping))
         snap.state = state.snapping ? .on : .off
         menu.addItem(snap)
-        let login = entry("Abrir ao ligar o Mac", icon: nil, action: #selector(toggleLogin))
+        let login = entry(L("menu.openAtLogin"), icon: nil, action: #selector(toggleLogin))
         login.state = state.launchAtLogin ? .on : .off
         menu.addItem(login)
         menu.addItem(.separator())
-        let prefs = entry("Ajustes…", icon: nil, action: #selector(openSettingsFromMenu))
+        let prefs = entry(L("menu.settings"), icon: nil, action: #selector(openSettingsFromMenu))
         prefs.keyEquivalent = ","
         menu.addItem(prefs)
-        let quit = entry("Sair do Windows", icon: nil, action: #selector(quit))
+        let quit = entry(L("menu.quit"), icon: nil, action: #selector(quit))
         quit.keyEquivalent = "q"
         menu.addItem(quit)
     }
@@ -174,7 +174,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         state.refresh()
         if settings == nil {
             let editing: CustomLayout? = Self.editorAtLaunch.map { name in
-                Config.shared.layouts.first { $0.name == name } ?? CustomLayout(name: "", width: 70, height: 70, anchor: .center)
+                Config.shared.layouts.first { $0.name == name || $0.id.uuidString == name } ?? CustomLayout(name: "", width: 70, height: 70, anchor: .center)
             }
             settings = MacShell.window(title: "Windows", size: SettingsView.size, minSize: SettingsView.minSize,
                                        autosave: "WindowsSettings",

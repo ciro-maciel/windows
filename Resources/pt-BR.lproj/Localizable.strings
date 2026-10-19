@@ -1,0 +1,137 @@
+/* Windows: interface text. Every key exists in en.lproj and pt-BR.lproj. */
+
+/* Menu bar */
+"menu.rival" = "O %@ está aberto e disputa os atalhos";
+"menu.allowAccess" = "Permitir o acesso…";
+"menu.snap" = "Encaixar ao arrastar";
+"menu.openAtLogin" = "Abrir ao ligar o Mac";
+"menu.settings" = "Ajustes…";
+"menu.quit" = "Sair do Windows";
+
+/* Positions */
+"action.leftHalf" = "Metade esquerda";
+"action.rightHalf" = "Metade direita";
+"action.topHalf" = "Metade de cima";
+"action.bottomHalf" = "Metade de baixo";
+"action.maximize" = "Tela inteira";
+"action.center" = "Centralizar";
+"action.restore" = "Voltar ao tamanho anterior";
+"action.nextDisplay" = "Próxima tela";
+"action.topLeft" = "Canto de cima à esquerda";
+"action.topRight" = "Canto de cima à direita";
+"action.bottomLeft" = "Canto de baixo à esquerda";
+"action.bottomRight" = "Canto de baixo à direita";
+"action.maximize.note" = "Sem cobrir a barra de menus e o Dock";
+"action.center.note" = "Mesmo tamanho, no meio da tela";
+"action.nextDisplay.note" = "Leva a janela para o outro monitor";
+
+/* Sizes */
+"layout.default.almostFull" = "Quase inteira";
+"layout.default.large" = "Grande";
+"layout.default.medium" = "Média";
+"layout.fallbackName" = "Tamanho";
+"anchor.topLeft" = "Em cima à esquerda";
+"anchor.top" = "Em cima";
+"anchor.topRight" = "Em cima à direita";
+"anchor.left" = "À esquerda";
+"anchor.center" = "No centro";
+"anchor.right" = "À direita";
+"anchor.bottomLeft" = "Embaixo à esquerda";
+"anchor.bottom" = "Embaixo";
+"anchor.bottomRight" = "Embaixo à direita";
+"display.current" = "Tela da janela";
+"display.main" = "Tela principal";
+"display.next" = "Próxima tela";
+
+/* Settings window */
+"settings.group" = "Ajustes";
+"pane.shortcuts" = "Atalhos";
+"pane.drag" = "Arrastar";
+"pane.general" = "Geral";
+"pane.shortcuts.subtitle" = "Aperte o atalho e a janela da frente vai para o lugar. Clique num atalho para trocar.";
+"pane.drag.subtitle" = "Leve a janela pela barra de título até a borda da tela e solte.";
+"pane.general.subtitle" = "O Windows fica só na barra de menus, sem ícone no Dock.";
+"status.accessibilityOn" = "Acessibilidade ligada";
+"status.accessibilityOff" = "Acessibilidade desligada";
+"sidebar.version" = "Versão %@ · por Ciro Cesar Maciel";
+"shortcuts.positions" = "Posições";
+"shortcuts.sizes" = "Tamanhos";
+"shortcuts.newSize" = "Novo tamanho";
+"shortcuts.empty" = "Nenhum tamanho ainda. Crie um com Novo tamanho: largura, altura, posição e atalho.";
+"shortcuts.hint" = "Clique num atalho e aperte a combinação nova. ⌫ tira o atalho, esc cancela.";
+"shortcuts.reset" = "Voltar aos atalhos padrão";
+"shortcuts.andMore" = "%@ (e mais %ld)";
+"drag.toggle" = "Encaixar ao arrastar até a borda";
+"drag.toggle.note" = "Enquanto o cursor está na borda, um contorno mostra onde a janela vai parar.";
+"drag.where" = "Onde soltar";
+"drag.leftEdge" = "Borda esquerda";
+"drag.rightEdge" = "Borda direita";
+"drag.topEdge" = "Borda de cima";
+"drag.corner" = "Um dos cantos";
+"drag.quarter" = "Um quarto da tela";
+"general.login" = "Abrir ao ligar o Mac";
+"general.login.note" = "Entra sozinho quando você liga o Mac, direto na barra de menus.";
+"permission.title" = "Falta uma permissão";
+"permission.body" = "Para mover janelas de outros apps, ligue o Windows em Ajustes do Sistema, Privacidade e Segurança, Acessibilidade.";
+"permission.open" = "Abrir Ajustes";
+"rival.title" = "O %@ está aberto";
+"rival.body" = "Ele usa os mesmos atalhos e o macOS entrega cada atalho a quem chegou primeiro. Feche o %@ e tire ele dos itens de início; o Windows assume os atalhos na hora.";
+
+/* Size editor */
+"editor.new" = "Novo tamanho";
+"editor.edit" = "Editar tamanho";
+"editor.close" = "Fechar sem salvar (esc)";
+"editor.name" = "Nome";
+"editor.name.placeholder" = "Ex.: Leitura";
+"editor.width" = "Largura";
+"editor.height" = "Altura";
+"editor.unit" = "Medida";
+"editor.unit.percent" = "% da tela";
+"editor.unit.points" = "Pontos";
+"editor.position" = "Posição";
+"editor.display" = "Tela";
+"editor.shortcut" = "Atalho";
+"editor.delete" = "Excluir";
+"editor.create" = "Criar tamanho";
+"editor.save" = "Salvar";
+"editor.percentRange" = "Largura e altura entre 5% e 100% da tela.";
+"editor.pointsRange" = "Largura e altura entre 100 e 10.000 pontos.";
+"hold.countdown" = "Segure… %ld";
+"hold.help" = "Segure por %ld segundos para excluir. Solte para cancelar.";
+
+/* Shortcut recorder */
+"recorder.recording" = "Digite o atalho";
+"recorder.none" = "Sem atalho";
+"recorder.help.recording" = "Aperte a combinação. ⌫ tira o atalho, esc cancela.";
+"recorder.help.idle" = "Clique para trocar o atalho";
+"recorder.tip" = "⌫ tira o atalho · esc cancela\nSe nada aparecer, outro app já usa a combinação";
+"recorder.needsModifier" = "Use ⌃, ⌥ ou ⌘ junto com a tecla";
+"recorder.taken" = "%@ já é o atalho de “%@”";
+"key.space" = "Espaço";
+
+/* Conflicts */
+"conflict.own" = "Já é o atalho de “%@”";
+"conflict.system" = "O macOS usa %@ para %@";
+"conflict.rival" = "O %@ está aberto e pode usar %@";
+"conflict.app" = "%@ usa %@ em “%@”; lá ele passa a ser do Windows";
+"conflict.anApp" = "Um app";
+"conflict.aMenuItem" = "um item de menu";
+"system.generic" = "um atalho do macOS (Ajustes do Sistema, Teclado, Atalhos)";
+"system.spotlight" = "a busca do Spotlight";
+"system.finderSearch" = "a busca do Finder";
+"system.previousInput" = "a fonte de entrada anterior";
+"system.nextInput" = "a próxima fonte de entrada";
+"system.screenshot" = "a captura da tela";
+"system.screenshotPart" = "a captura de parte da tela";
+"system.screenshotApp" = "o app Captura de Tela";
+"system.copyScreen" = "copiar a tela";
+"system.copyPart" = "copiar parte da tela";
+"system.missionControl" = "o Mission Control";
+"system.appWindows" = "as janelas do app";
+"system.spaceLeft" = "ir para a mesa à esquerda";
+"system.spaceRight" = "ir para a mesa à direita";
+"system.dock" = "mostrar e ocultar o Dock";
+"system.switchApps" = "trocar de app";
+"system.switchWindows" = "trocar de janela do app";
+"system.forceQuit" = "forçar o encerramento";
+"system.showDesktop" = "mostrar a mesa";

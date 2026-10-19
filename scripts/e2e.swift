@@ -15,6 +15,8 @@ let shotDir = CommandLine.arguments.count > 2 ? CommandLine.arguments[2] : NSTem
 let logPath = NSTemporaryDirectory() + "windows-e2e-\(getpid()).log"
 /// Settings of the app under test live in their own suite: the person's are never touched.
 let suite = "click.ciromaciel.windows.e2e"
+/// The app follows the Mac's language; the test reads menu titles in Portuguese, so it pins that.
+let appLanguage = ["-AppleLanguages", "(pt-BR)"]
 
 /// The configuration the test starts from: ⌃⌥J instead of ⌃⌥C to center (a letter, not an arrow:
 /// with Fn, as the test sends arrows, ⌃+arrow is macOS's own tiling), the three
@@ -291,7 +293,7 @@ final class Runner {
     func probe(_ spec: String) -> String {
         let task = Process()
         task.executableURL = URL(fileURLWithPath: "\(appPath)/Contents/MacOS/Windows")
-        task.arguments = ["--conflicts", spec]
+        task.arguments = ["--conflicts", spec] + appLanguage
         task.environment = ProcessInfo.processInfo.environment.merging(["WINDOWS_DEFAULTS": suite]) { $1 }
         let out = Pipe()
         task.standardOutput = out
@@ -362,7 +364,7 @@ guard AXIsProcessTrusted() else { print("Este terminal precisa de Acessibilidade
 let p = Process()
 p.executableURL = URL(fileURLWithPath: "\(appPath)/Contents/MacOS/Windows")
 seedConfig()
-p.arguments = ["--open-settings", "shortcuts"]
+p.arguments = ["--open-settings", "shortcuts"] + appLanguage
 p.environment = ProcessInfo.processInfo.environment.merging(["WINDOWS_LOG": logPath, "WINDOWS_DEFAULTS": suite]) { $1 }
 try! p.run()
 runner.windowsApp = p

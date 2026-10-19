@@ -13,29 +13,12 @@ enum WindowAction: String, CaseIterable, Codable {
         .leftHalf, .rightHalf, .topHalf, .bottomHalf, .maximize, .center, .restore, .nextDisplay,
     ]
 
-    var title: String {
-        switch self {
-        case .leftHalf: return "Metade esquerda"
-        case .rightHalf: return "Metade direita"
-        case .topHalf: return "Metade de cima"
-        case .bottomHalf: return "Metade de baixo"
-        case .maximize: return "Tela inteira"
-        case .center: return "Centralizar"
-        case .restore: return "Voltar ao tamanho anterior"
-        case .nextDisplay: return "Próxima tela"
-        case .topLeft: return "Canto de cima à esquerda"
-        case .topRight: return "Canto de cima à direita"
-        case .bottomLeft: return "Canto de baixo à esquerda"
-        case .bottomRight: return "Canto de baixo à direita"
-        }
-    }
+    var title: String { L("action.\(rawValue)") }
 
     /// What the action means, in one line for the settings window.
     var note: String {
         switch self {
-        case .maximize: return "Sem cobrir a barra de menus e o Dock"
-        case .center: return "Mesmo tamanho, no meio da tela"
-        case .nextDisplay: return "Leva a janela para o outro monitor"
+        case .maximize, .center, .nextDisplay: return L("action.\(rawValue).note")
         default: return ""
         }
     }

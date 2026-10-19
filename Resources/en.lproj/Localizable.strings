@@ -1,0 +1,137 @@
+/* Windows: interface text. Every key exists in en.lproj and pt-BR.lproj. */
+
+/* Menu bar */
+"menu.rival" = "%@ is open and competes for the shortcuts";
+"menu.allowAccess" = "Allow Access…";
+"menu.snap" = "Snap When Dragging";
+"menu.openAtLogin" = "Open at Login";
+"menu.settings" = "Settings…";
+"menu.quit" = "Quit Windows";
+
+/* Positions */
+"action.leftHalf" = "Left Half";
+"action.rightHalf" = "Right Half";
+"action.topHalf" = "Top Half";
+"action.bottomHalf" = "Bottom Half";
+"action.maximize" = "Maximize";
+"action.center" = "Center";
+"action.restore" = "Restore Previous Size";
+"action.nextDisplay" = "Next Display";
+"action.topLeft" = "Top Left Corner";
+"action.topRight" = "Top Right Corner";
+"action.bottomLeft" = "Bottom Left Corner";
+"action.bottomRight" = "Bottom Right Corner";
+"action.maximize.note" = "Leaves the menu bar and the Dock uncovered";
+"action.center.note" = "Same size, in the middle of the screen";
+"action.nextDisplay.note" = "Moves the window to the other display";
+
+/* Sizes */
+"layout.default.almostFull" = "Almost Full";
+"layout.default.large" = "Large";
+"layout.default.medium" = "Medium";
+"layout.fallbackName" = "Size";
+"anchor.topLeft" = "Top left";
+"anchor.top" = "Top";
+"anchor.topRight" = "Top right";
+"anchor.left" = "Left";
+"anchor.center" = "Center";
+"anchor.right" = "Right";
+"anchor.bottomLeft" = "Bottom left";
+"anchor.bottom" = "Bottom";
+"anchor.bottomRight" = "Bottom right";
+"display.current" = "Window's display";
+"display.main" = "Main display";
+"display.next" = "Next display";
+
+/* Settings window */
+"settings.group" = "Settings";
+"pane.shortcuts" = "Shortcuts";
+"pane.drag" = "Drag";
+"pane.general" = "General";
+"pane.shortcuts.subtitle" = "Press a shortcut and the front window moves into place. Click a shortcut to change it.";
+"pane.drag.subtitle" = "Drag a window by its title bar to the edge of the screen and let go.";
+"pane.general.subtitle" = "Windows lives in the menu bar only, with no icon in the Dock.";
+"status.accessibilityOn" = "Accessibility on";
+"status.accessibilityOff" = "Accessibility off";
+"sidebar.version" = "Version %@ · by Ciro Cesar Maciel";
+"shortcuts.positions" = "Positions";
+"shortcuts.sizes" = "Sizes";
+"shortcuts.newSize" = "New Size";
+"shortcuts.empty" = "No sizes yet. Create one with New Size: width, height, position and shortcut.";
+"shortcuts.hint" = "Click a shortcut and press the new combination. ⌫ removes the shortcut, esc cancels.";
+"shortcuts.reset" = "Restore Default Shortcuts";
+"shortcuts.andMore" = "%@ (and %ld more)";
+"drag.toggle" = "Snap when dragging to the edge";
+"drag.toggle.note" = "While the pointer is at the edge, an outline shows where the window will land.";
+"drag.where" = "Where to drop";
+"drag.leftEdge" = "Left edge";
+"drag.rightEdge" = "Right edge";
+"drag.topEdge" = "Top edge";
+"drag.corner" = "Any corner";
+"drag.quarter" = "A quarter of the screen";
+"general.login" = "Open at Login";
+"general.login.note" = "Starts by itself when you log in, straight into the menu bar.";
+"permission.title" = "One permission is missing";
+"permission.body" = "To move other apps' windows, turn on Windows in System Settings > Privacy & Security > Accessibility.";
+"permission.open" = "Open System Settings";
+"rival.title" = "%@ is open";
+"rival.body" = "It uses the same shortcuts, and macOS gives each shortcut to whichever app took it first. Quit %@ and remove it from Login Items; Windows takes the shortcuts over right away.";
+
+/* Size editor */
+"editor.new" = "New Size";
+"editor.edit" = "Edit Size";
+"editor.close" = "Close without saving (esc)";
+"editor.name" = "Name";
+"editor.name.placeholder" = "e.g. Reading";
+"editor.width" = "Width";
+"editor.height" = "Height";
+"editor.unit" = "Unit";
+"editor.unit.percent" = "% of screen";
+"editor.unit.points" = "Points";
+"editor.position" = "Position";
+"editor.display" = "Display";
+"editor.shortcut" = "Shortcut";
+"editor.delete" = "Delete";
+"editor.create" = "Create Size";
+"editor.save" = "Save";
+"editor.percentRange" = "Width and height between 5% and 100% of the screen.";
+"editor.pointsRange" = "Width and height between 100 and 10,000 points.";
+"hold.countdown" = "Hold… %ld";
+"hold.help" = "Hold for %ld seconds to delete. Let go to cancel.";
+
+/* Shortcut recorder */
+"recorder.recording" = "Type the shortcut";
+"recorder.none" = "No shortcut";
+"recorder.help.recording" = "Press the combination. ⌫ removes the shortcut, esc cancels.";
+"recorder.help.idle" = "Click to change the shortcut";
+"recorder.tip" = "⌫ removes the shortcut · esc cancels\nIf nothing shows up, another app already uses the combination";
+"recorder.needsModifier" = "Use ⌃, ⌥ or ⌘ together with the key";
+"recorder.taken" = "%@ is already the shortcut for “%@”";
+"key.space" = "Space";
+
+/* Conflicts */
+"conflict.own" = "Already the shortcut for “%@”";
+"conflict.system" = "macOS uses %@ for %@";
+"conflict.rival" = "%@ is open and may use %@";
+"conflict.app" = "%@ uses %@ for “%@”; there it now belongs to Windows";
+"conflict.anApp" = "An app";
+"conflict.aMenuItem" = "a menu item";
+"system.generic" = "a macOS shortcut (System Settings > Keyboard > Keyboard Shortcuts)";
+"system.spotlight" = "Spotlight search";
+"system.finderSearch" = "Finder search";
+"system.previousInput" = "the previous input source";
+"system.nextInput" = "the next input source";
+"system.screenshot" = "a screenshot of the screen";
+"system.screenshotPart" = "a screenshot of part of the screen";
+"system.screenshotApp" = "the Screenshot app";
+"system.copyScreen" = "copying the screen";
+"system.copyPart" = "copying part of the screen";
+"system.missionControl" = "Mission Control";
+"system.appWindows" = "Application Windows";
+"system.spaceLeft" = "moving one space left";
+"system.spaceRight" = "moving one space right";
+"system.dock" = "showing and hiding the Dock";
+"system.switchApps" = "switching apps";
+"system.switchWindows" = "switching the app's windows";
+"system.forceQuit" = "Force Quit";
+"system.showDesktop" = "Show Desktop";

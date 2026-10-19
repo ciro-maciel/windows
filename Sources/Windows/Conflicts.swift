@@ -3,7 +3,7 @@ import Carbon.HIToolbox
 
 /// Who else uses a shortcut. macOS has no API for "is this combination taken": a global hot key
 /// registered by another app is invisible, so the check covers what can be seen:
-/// this app's own table, the system shortcuts (Ajustes > Teclado > Atalhos), another window
+/// this app's own table, the system shortcuts (System Settings > Keyboard > Keyboard Shortcuts), another window
 /// manager running, and the menus of every open app.
 struct Conflict: Hashable {
     enum Kind: Hashable { case own, system, rival, app }
@@ -25,33 +25,33 @@ enum Conflicts {
                   let code = entry["kHISymbolicHotKeyCode"] as? Int, code == Int(s.keyCode),
                   let mods = entry["kHISymbolicHotKeyModifiers"] as? Int,
                   UInt32(mods) & UInt32(cmdKey | shiftKey | optionKey | controlKey) == wanted else { continue }
-            return knownSystem[s] ?? "um atalho do macOS (Ajustes do Sistema, Teclado, Atalhos)"
+            return knownSystem[s].map { L($0) } ?? L("system.generic")
         }
         return nil
     }
 
-    /// The best known system shortcuts, by name (the HIToolbox list carries no names).
+    /// The best known system shortcuts, by string key (the HIToolbox list carries no names).
     private static let knownSystem: [Shortcut: String] = {
         func k(_ key: Int, _ m: NSEvent.ModifierFlags) -> Shortcut { Shortcut(keyCode: UInt32(key), modifiers: m) }
         return [
-            k(kVK_Space, .command): "a busca do Spotlight",
-            k(kVK_Space, [.option, .command]): "a busca do Finder",
-            k(kVK_Space, .control): "a fonte de entrada anterior",
-            k(kVK_Space, [.control, .option]): "a próxima fonte de entrada",
-            k(kVK_ANSI_3, [.shift, .command]): "a captura da tela",
-            k(kVK_ANSI_4, [.shift, .command]): "a captura de parte da tela",
-            k(kVK_ANSI_5, [.shift, .command]): "o app Captura de Tela",
-            k(kVK_ANSI_3, [.control, .shift, .command]): "copiar a tela",
-            k(kVK_ANSI_4, [.control, .shift, .command]): "copiar parte da tela",
-            k(kVK_UpArrow, .control): "o Mission Control",
-            k(kVK_DownArrow, .control): "as janelas do app",
-            k(kVK_LeftArrow, .control): "ir para a mesa à esquerda",
-            k(kVK_RightArrow, .control): "ir para a mesa à direita",
-            k(kVK_ANSI_D, [.option, .command]): "mostrar e ocultar o Dock",
-            k(kVK_Tab, .command): "trocar de app",
-            k(kVK_ANSI_Grave, .command): "trocar de janela do app",
-            k(kVK_Escape, [.option, .command]): "forçar o encerramento",
-            k(kVK_F11, []): "mostrar a mesa",
+            k(kVK_Space, .command): "system.spotlight",
+            k(kVK_Space, [.option, .command]): "system.finderSearch",
+            k(kVK_Space, .control): "system.previousInput",
+            k(kVK_Space, [.control, .option]): "system.nextInput",
+            k(kVK_ANSI_3, [.shift, .command]): "system.screenshot",
+            k(kVK_ANSI_4, [.shift, .command]): "system.screenshotPart",
+            k(kVK_ANSI_5, [.shift, .command]): "system.screenshotApp",
+            k(kVK_ANSI_3, [.control, .shift, .command]): "system.copyScreen",
+            k(kVK_ANSI_4, [.control, .shift, .command]): "system.copyPart",
+            k(kVK_UpArrow, .control): "system.missionControl",
+            k(kVK_DownArrow, .control): "system.appWindows",
+            k(kVK_LeftArrow, .control): "system.spaceLeft",
+            k(kVK_RightArrow, .control): "system.spaceRight",
+            k(kVK_ANSI_D, [.option, .command]): "system.dock",
+            k(kVK_Tab, .command): "system.switchApps",
+            k(kVK_ANSI_Grave, .command): "system.switchWindows",
+            k(kVK_Escape, [.option, .command]): "system.forceQuit",
+            k(kVK_F11, []): "system.showDesktop",
         ]
     }()
 
@@ -72,7 +72,7 @@ enum Conflicts {
             var bar: CFTypeRef?
             guard AXUIElementCopyAttributeValue(element, kAXMenuBarAttribute as CFString, &bar) == .success, let bar else { continue }
             if let title = search(bar as! AXUIElement, s, character: character, depth: 0) {
-                found.append((app.localizedName ?? "Um app", title))
+                found.append((app.localizedName ?? L("conflict.anApp"), title))
             }
         }
         return found
@@ -95,7 +95,7 @@ enum Conflicts {
         let title = list[0] as? String
         if let mods = list[2] as? Int, matches(mods: mods, char: list[1] as? String, virtualKey: list[3] as? Int,
                                                 glyph: list[4] as? Int, s, character: character) {
-            return title ?? "um item de menu"
+            return title ?? L("conflict.aMenuItem")
         }
         for child in (list[5] as? [AXUIElement]) ?? [] {
             if let hit = search(child, s, character: character, depth: depth + 1) { return hit }
@@ -122,14 +122,14 @@ enum Conflicts {
     static func check(_ s: Shortcut, for command: Command?) async -> [Conflict] {
         var result: [Conflict] = []
         if let owner = Config.shared.owner(of: s, except: command) {
-            result.append(Conflict(kind: .own, text: "Já é o atalho de “\(Config.shared.title(owner))”"))
+            result.append(Conflict(kind: .own, text: L("conflict.own", Config.shared.title(owner))))
         }
-        if let name = system(s) { result.append(Conflict(kind: .system, text: "O macOS usa \(s.text) para \(name)")) }
-        if let rival = rival() { result.append(Conflict(kind: .rival, text: "O \(rival) está aberto e pode usar \(s.text)")) }
+        if let name = system(s) { result.append(Conflict(kind: .system, text: L("conflict.system", s.text, name))) }
+        if let rival = rival() { result.append(Conflict(kind: .rival, text: L("conflict.rival", rival, s.text))) }
         let character = Shortcut.character(for: s.keyCode)
         let hits = await Task.detached { apps(s, character: character) }.value
         for hit in hits.prefix(3) {
-            result.append(Conflict(kind: .app, text: "\(hit.app) usa \(s.text) em “\(hit.item)”; lá ele passa a ser do Windows"))
+            result.append(Conflict(kind: .app, text: L("conflict.app", hit.app, s.text, hit.item)))
         }
         return result
     }
