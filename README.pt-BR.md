@@ -6,7 +6,7 @@ Um dos [seis apps de Mac grátis e de código aberto](#mais-de-ciro-cesar-maciel
 
 **[Veja o vídeo de 1 minuto](https://youtu.be/CbZBvyRRED4)** (em inglês)
 
-[![As seen on Open Source Alternatives](https://www.opensourcealternatives.to/badge-osa.svg)](https://www.opensourcealternatives.to)
+[![As seen on Open Source Alternatives](https://www.opensourcealternatives.to/badge-osa.svg)](https://www.opensourcealternatives.to) [![Windows by Ciro Cesar Maciel | AlternativeTo](https://alternativeto.net/static/badges/badge-compact-color.svg)](https://alternativeto.net/software/windows-by-ciro-cesar-maciel/about/?utm_source=badge&utm_medium=referral)
 
 Metades, tela inteira, centralizar, a próxima tela e tamanhos seus, cada um num atalho que você pode trocar. Leve uma janela até uma borda ou um canto e solte. Fica na barra de menus, sem ícone no Dock, e não tem código de rede. No espírito do Rectangle e do Magnet, menor de propósito. Um app nativo em Swift para macOS 14+ em Apple Silicon.
 
