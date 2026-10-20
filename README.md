@@ -6,6 +6,8 @@ One of [six free, open-source Mac apps](#more-from-ciro-cesar-maciel) by [Ciro C
 
 **[Watch the 1-minute video](https://youtu.be/CbZBvyRRED4)**
 
+[![As seen on Open Source Alternatives](https://www.opensourcealternatives.to/badge-osa.svg)](https://www.opensourcealternatives.to)
+
 Halves, full screen, center, the next display and sizes of your own, each on a shortcut you can change. Drag a window to an edge or a corner and let go. It lives in the menu bar, with no Dock icon, and it has no network code. In the spirit of Rectangle and Magnet, deliberately smaller. A native Swift app for macOS 14+ on Apple Silicon.
 
 [Português](README.pt-BR.md)
