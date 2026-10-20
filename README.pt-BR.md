@@ -20,6 +20,8 @@ curl -fsSL https://blob.ciromaciel.click/tools/windows/install.sh | bash
 
 O script baixa o `.dmg` mais recente, copia o Windows para `/Applications` e abre o app.
 
+Com o [Homebrew](https://github.com/ciro-maciel/homebrew-tap): `brew install --cask ciro-maciel/tap/ciro-windows`.
+
 Prefere a imagem de disco? [Baixe o Windows-macos.dmg](https://blob.ciromaciel.click/tools/windows/latest/Windows-macos.dmg). Abra e arraste o Windows para Aplicativos. Ele é assinado com Developer ID e notarizado pela Apple, então o macOS abre sem aviso.
 
 Na primeira vez, ligue o Windows em **Ajustes do Sistema → Privacidade e Segurança → Acessibilidade**. É a permissão que o macOS exige para um app mover janelas de outros apps; o Windows mostra o pedido do sistema, abre os Ajustes dele e percebe sozinho quando a permissão foi ligada.
