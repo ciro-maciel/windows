@@ -135,3 +135,4 @@
 "system.switchWindows" = "switching the app's windows";
 "system.forceQuit" = "Force Quit";
 "system.showDesktop" = "Show Desktop";
+"logotype.help" = "%@ by Ciro Cesar Maciel. More tools at ciromaciel.click";
