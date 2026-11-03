@@ -44,6 +44,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     nonisolated(unsafe) static var editorAtLaunch: String?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        let isLogin = LoginLaunch.isNow()
         Zen.registerFonts()
         HotKeys.shared.registerAll()
         Mover.shared.note("started; shortcuts refused: \(HotKeys.shared.failed.map(\.key).joined(separator: ","))")
@@ -74,7 +75,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         menu.delegate = self
         item.menu = menu
 
-        if !state.trusted {
+        // Opened at login it stays in the menu bar: no sheet, no window, it still watches for the grant.
+        if !state.trusted && isLogin {
+            watchTrust()
+        } else if !state.trusted {
             // The system sheet that points to Accessibility, plus our own window explaining it.
             let key = kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String
             AXIsProcessTrustedWithOptions([key: true] as CFDictionary)
